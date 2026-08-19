@@ -3,37 +3,22 @@ using namespace std;
 int main(){
     int n;
     cin >> n;
+    int maxlen = 0;
     vector<int> v(n);
     for(int i = 0; i < n; i++){
         cin >> v[i];
-    }
-    int find;
-    cout << "What sum  : " << endl;
-    cin >> find;
-    int length,maxlen = 0;
-    int low = 0;
-    int high = 0;
+    unordered_map<int,int> um;
+    um[0] = -1;
+    int target;
     int sum = 0;
-    while(high < n && low <= high){
-        if(sum < find){
-            sum = sum +v[high];
-            high++;
-        }
-        else if(sum > find){
-            sum = sum - v[low];
-            low++;
-        }
-        else if(sum == find){
-            length = high - low;
-            maxlen = max(length,maxlen);
-            sum = sum - v[low];
-            low++;
+    cout << "What Sum : " << endl;
+    cin >> target;
+    for(int i = 0; i < n; i++){
+        sum = sum + v[i];
+        target = sum - f
+        if(um.find(sum) != um.end()){
+
         }
     }
-    if(maxlen == 0){
-        cout << 0;
-        return 0;
     }
-    cout << "The longest subarray is " << maxlen << " elements long.";
-    return 0;
 }
