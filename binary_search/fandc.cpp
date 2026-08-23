@@ -10,8 +10,8 @@ int main(){
     }
     sort(v.begin(),v.end());
     int target;
-    int floor = n;
-    int ceil = n;
+    int floor = -1;
+    int ceil = -1;
     cout << "Whose floor and ceil do you need : " << endl;
     cin >> target;
     int low = 0;
