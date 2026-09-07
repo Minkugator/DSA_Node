@@ -1,53 +1,38 @@
 #include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int m;
-    cin >> m;
-    int n;
-    cin >> n;
-    vector<vector<int>> matrix(m, vector<int>(n) );
-    for(int i = 0; i < m; i++){
-        for(int j = 0; j < n; j++){
+int smaller(const vector<vector<int>>& matrix, int mid) {
+    int count = 0;
+    for (int i = 0; i < matrix.size(); i++) {
+        count += upper_bound(matrix[i].begin(), matrix[i].end(), mid) - matrix[i].begin();
+    }
+    return count;
+}
+
+int main() {
+    int m, n;
+    cin >> m >> n;   
+    vector<vector<int>> matrix(m, vector<int>(n));
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
             cin >> matrix[i][j];
         }
     }
-    int low = 0;
-    int high = n - 1;
-    int median = 0;
-    if(high == 0){
-        median = matrix[m/2][1];
-        cout << "Median is: " << median;
-        return 0;
+    int low = INT_MAX;
+    int high = INT_MIN;
+    for (int i = 0; i < m; i++) {
+        low = min(low, matrix[i][0]);
+        high = max(high, matrix[i][n - 1]);
     }
-    int midcol = (low + high) / 2;
-    int mn = 0;
-    int mx = 0;
-    for(int i = 0 ; i < m; i++){
-        mn = min(mn,matrix[i][midcol]);
-    }
-    for(int i = 0 ; i < m; i++){
-        mx = max(mx,matrix[i][midcol]);
-    }
-    if(mn == mx){
-        median = mn;
-        cout << "Median is: " << median;
-        return 0;
-    }
-    for(int i = 0 ; i < m; i++){
-        int temp = matrix[i][midcol];
-        if(temp!= mn && temp != mx){
-            median = temp;
-            break;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        int count = smaller(matrix, mid);
+        
+        if (count <= (m * n) / 2) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
         }
-        else if(temp == mn){
-            median = mn;
-            break;
-        }
-        else if( temp == mx){
-            median = mx;
-            break;
-        }   
     }
-    cout <<  "Median is: " << median;
+    cout << "Median is: " << low << endl;
     return 0;
 }
